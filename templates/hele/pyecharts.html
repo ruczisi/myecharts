@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load mytags %}
+    {% block title %}{{ town }}-{{ school_name }}2018年春季学期学生就餐数据</title>{% endblock %}
+{% block script %}
+{% for jsfile_name in pie_script_list %}
+    <script src = "{{ host }}/{{ jsfile_name }}.js"></script>
+    {% endfor %}
+ {% for jsfile_name in bar_script_list %}
+        <script src = "{{ host }}/{{ jsfile_name }}.js"></script>
+    {% endfor %}
+{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{% url "index" %}">首页</a></li>
+    <li>/</li>
+    <li><a href="{% url "get_school" town.id %}">{{ town }}</a></li>
+    <li>/</li>
+    <li><a href="#">{{ school_name }}</a></li>
+{% endblock %}
+{% block content %}
+    <div class="noprint"><span  style="margin-left: 80%"><a  href="javascript:window.print()" tabindex="1" rel="external nofollow" target="_blank">打印</a>
+        {% ifequal next_school 0 %}
+        {% else %}
+            |<a href="{% url "myechart" next_school %}" tabindex="2">下一所学校</a>
+        {% endifequal %}
+        </span>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+        <div class="" id = "doprint">
+            <!--页面标题-->
+            <div class="text-center">
+                <h3>{{ school_name }}<br>
+                    <small>在校学生{{ school_student }}人,人日餐标{{ total }}元,人日食物摄入量:{{ nutr_total }}g</small></h3>
+            </div>
+            <!--结构表及饼图-->
+            <div><table class="table responsive-table" width="960px">
+                <thead>
+                <caption><h4>学生每日食物分类消费情况（单位:元）</h4></caption>
+                <tr><th>类别</th><th>大米</th><th>糕点</th><th>蛋类</th><th>鸡鸭肉</th><th>米粉</th><th>奶制品</th><th>牛肉</th><th>食用油</th><th>蔬菜</th><th>调味品</th><th>猪肉</th><th>总计</th></tr>
+                </thead>
+                <tr>
+                    <th>人日消费（元）</th>
+                    <td>￥{{ school.rice|roundfunc }}</td>
+                    <td>￥{{ school.ganhuo|roundfunc }}</td>
+                    <td>￥{{ school.egg|roundfunc }}</td>
+                    <td>￥{{ school.chicken|roundfunc }}</td>
+                    <td>￥{{ school.ricenoodle|roundfunc }}</td>
+                    <td>￥{{ school.milk|roundfunc }}</td>
+                    <td>￥{{ school.beef|roundfunc }}</td>
+                    <td>￥{{ school.oil|roundfunc }}</td>
+                    <td>￥{{ school.vegitable|roundfunc }}</td>
+                    <td>￥{{ school.flavor|roundfunc }}</td>
+                    <td>￥{{ school.pock|roundfunc }}</td>
+                    <td>￥{{ school.total|roundfunc }}</td>
+                </tr>
+            </table></div>
+            <div class="span11 center" style="margin-right: 3%">{{ pie_myecharts | safe }}</div>
+            <div class="span11 center" style="margin-right: 3%">{{ bar_myecharts | safe }}</div>
+        </div>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

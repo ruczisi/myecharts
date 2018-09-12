@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load mytags %}
+{% block title %}2018年春季学期分析图表{% endblock %}
+{% block breadcrumb %}
+    <li><a href="{% url "index" %}"> 首页</a></li>
+    <li>/</li>
+    <li><a href="#"> {{ school_town.name }}</a></li>
+{% endblock %}
+{% block content %}
+    <table class="table table-view transparent">
+    <caption><h3>学校列表</h3></caption>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>学校（校区）</th>
+        <th>所属乡镇</th>
+        <th>在校人数</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for school in school_list %}
+        <tr>
+        {% if school.id == 58 %}
+        <td>{{ school.id }}</td>
+        <td><a href="{% url 'myechart' school.id %}">全县平均</a></td>
+        <td>--</td>
+            <td>{{ school.students }}</td>
+            <td><a href="{% url 'myechart' school.id %}">查看</a></td>
+        {% else %}
+        <td>{{ school.id }}</td>
+        <td><a href="{% url 'myechart' school.id %}">{{ school.name }}</a></td>
+        <td>{{ school.district }}</td>
+            <td>{{ school.students }}</td>
+            <td><a href="{% url 'myechart' school.id %}">查看</a></td>
+        {% endif %}
+          </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+
+{% endblock %}
