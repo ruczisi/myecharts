@@ -81,7 +81,7 @@ $(function(){
 
     //enable / disable
     $('#inplaceediting-enable').click(function() {
-        $('#inplaceediting-user .editable').editable('toggleDisabled');
+        $('#inplaceediting-users .editable').editable('toggleDisabled');
     });
 
     //editables
@@ -179,7 +179,7 @@ $(function(){
         source: countries
     });
 
-    $('#inplaceediting-user .editable').on('hidden', function(e, reason){
+    $('#inplaceediting-users .editable').on('hidden', function(e, reason){
         if(reason === 'save' || reason === 'nochange') {
             var $next = $(this).closest('tr').next().find('.editable');
             if($('#inplaceediting-autoopen').is(':checked')) {

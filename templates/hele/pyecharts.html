@@ -33,7 +33,7 @@
                     <small>在校学生{{ school_student }}人,人日餐标{{ total }}元,人日食物摄入量:{{ nutr_total }}g</small></h3>
             </div>
             <!--结构表及饼图-->
-            <div><table class="table responsive-table" width="960px">
+            <div><table class="table table-container">
                 <thead>
                 <caption><h4>学生每日食物分类消费情况（单位:元）</h4></caption>
                 <tr><th>类别</th><th>大米</th><th>糕点</th><th>蛋类</th><th>鸡鸭肉</th><th>米粉</th><th>奶制品</th><th>牛肉</th><th>食用油</th><th>蔬菜</th><th>调味品</th><th>猪肉</th><th>总计</th></tr>
@@ -54,8 +54,8 @@
                     <td>￥{{ school.total|roundfunc }}</td>
                 </tr>
             </table></div>
-            <div class="span11 center" style="margin-right: 3%">{{ pie_myecharts | safe }}</div>
-            <div class="span11 center" style="margin-right: 3%">{{ bar_myecharts | safe }}</div>
+            <div class="col-md-11 center" style="margin-right: 3%">{{ pie_myecharts | safe }}</div>
+            <div class="col-md-11 center" style="margin-right: 3%">{{ bar_myecharts | safe }}</div>
         </div>
 
 

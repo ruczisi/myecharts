@@ -4,11 +4,13 @@ from django.http import HttpResponse
 from pyecharts import Bar,Pie,Grid,Map
 from django.template import loader
 from hele.models import *
+from django.contrib.auth.decorators import login_required
 
 
 REMOTE_HOST = "https://pyecharts.github.io/assets/js"
-
+@login_required
 def index(request):
+    user = request.user
     town_list = District.objects.all()
     template = loader.get_template("index.html")
     mymap = Map(width=400)
@@ -16,6 +18,7 @@ def index(request):
     value = [1,2]
     mymap.add("",attr,value,maptype=u"平南县",is_label_show=True,is_map_symbol_show=True,is_toolbox_show=False )
     context = dict(
+        user = user,
         map_myecharts = mymap.render_embed(),
         host = REMOTE_HOST,
         town_list = town_list,
@@ -23,6 +26,7 @@ def index(request):
     )
     return HttpResponse(template.render(context,request))
 
+@login_required
 def all_school(request):
     context = dict(
         school_list = School.objects.all(),
@@ -30,6 +34,7 @@ def all_school(request):
     )
     return render(request,"hele/school.html",context=context)
 
+@login_required
 def get_school(request,pk):
     town = get_object_or_404(District,pk=pk)
     schools = School.objects.filter(district=town)
@@ -40,6 +45,7 @@ def get_school(request,pk):
     )
     return render(request,"hele/school.html",context=context)
 
+@login_required
 def myechart(request,pk):
     school = get_object_or_404(Food_Struct,pk=pk)
     school2 = get_object_or_404(School,pk=pk)
@@ -79,6 +85,7 @@ def myechart(request,pk):
     return HttpResponse(template.render(context,request))
 
 
+## 自定义函数
 def roundfunc(k):
     if k == None:
         return 0;

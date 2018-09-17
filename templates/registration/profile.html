@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block tiltle %}
+    用户信息
+{% endblock %}
+{% block content %}
+    <article>
+        <header class="content-header container-fluid">
+            <div class="row">
+                <h3>{{ profile.last_name }}{{ profile.first_name }}</h3>
+            </div>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="span12">
+                    <table class="box">
+                        <tr><th>姓名：</th><td>{{ profile.last_name }}{{ profile.first_name }}</td></tr>
+                        <tr><th>昵称:</th><td>{{ profile.nickname }}</td></tr>
+                        <tr><th>手机号码：</th><td>{{ profile.mobile }}</td></tr>
+                        <tr><th>邮箱：</th><td>{{ profile.email }}</td></tr>
+                        <tr><th>账号：</th><td>{{ profile.username }}</td></tr>
+                        <tr><th>密码：</th><td><a href="{% url 'password_reset' %}">重置密码</a> </td></tr>
+                        <tr><th>邮箱：</th><td>{{ profile.email }}</td></tr>
+                        <tr><th>状态：</th><td>{{ profile.is_active }}</td></tr>
+                        <tr><th>注册时间：</th><td>{{ profile.date_joined }}</td></tr>
+                        <tr><th>最后登录：</th><td>{{ profile.last_login }}</td></tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}

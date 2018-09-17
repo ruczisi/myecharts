@@ -69,12 +69,56 @@
             <a class="brand" href="{% url "index" %}">
              <img src="{% static 'images/brand.png' %}" width="40"/>禾乐学生饮食数据中心
             </a>
+            <ul class="nav pull-right">
+                <li class="dropdown user-menu">
+                    {% if user.is_authenticated %}
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="user-name hidden-phone" style="color: #ffffff">{{ user.username }}</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{% url 'users:profile' user.id %}">
+                                <i class="icon-user"></i>
+                                用户信息
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'password_change' %}">
+                                <i class="icon-cog"></i>
+                                修改密码
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout'%}">
+                                <i class="icon-signout"></i>
+                                注销
+                            </a>
+                        </li>
+                    </ul>
+                    {% else %}
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="user-name hidden-phone" style="color: #ffffff;">未登录</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{% url 'login' %}">
+                                <i class="icon-signin"></i>
+                                请登录
+                            </a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
     </div>
 
 </header>
 <div id="wrapper">
 <div class="main-nav-bg"></div>
+{% if user.is_authenticated %}
 <nav class="main-nav-fixed noprint" id="main-nav">
     <div class="navigation">
     <ul class="nav nav-stacked">
@@ -84,6 +128,7 @@
         <span>2018年春季</span>
         <i class="icon-angle-down angle-down"></i>
     </a>
+
 <ul class="nav nav-stacked">
             {% for town in town_list %}
                 <li class=""><a href="{% url 'get_school' town.id %}"><i class="icon-map-marker"></i>{{ town }}({{ town.schools }})</a></li>
@@ -94,6 +139,7 @@
     </ul>
 </div>
 </nav>
+    {% endif %}
 <section  id="content">
 <div class="content-fluid">
 <div class="row-fluid" id="content-wrapper">
